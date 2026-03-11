@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:restart_app/restart_app.dart';
 import '../config/app_constants.dart';
 import '../storage/secured_storage_model.dart';
  import '../utils/logger_utils.dart';
@@ -67,8 +68,6 @@ class ThemeManager extends GetxController {
     }
     LoggerUtils.info("Stored Theme Mode: $themeString");
     await _storage.write(AppConstants.themeMode, themeString);
-    LoggerUtils.info(
-      "Stored Theme Mode after same: ${await _storage.read(AppConstants.themeMode)}",
-    );
+    Restart.restartApp();
   }
 }

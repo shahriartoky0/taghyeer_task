@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:taghyeer_test/shared/components/custom_loader.dart';
 import '../../../core/config/app_colors.dart';
 import '../../../core/config/app_sizes.dart';
 import '../../../core/routes/app_routes.dart';
@@ -48,19 +49,7 @@ class ProductsScreen extends GetView<ProductsController> {
             ),
           ),
           const SizedBox(height: AppSizes.xs),
-          Obx(() {
-            if (controller.state.value == ProductsState.success) {
-              return Text(
-                // '${controller.products.length} of ${controller.products.length + (controller.hasMore ? '+' : '')} items',
-                '${controller.products.length} of ${controller.products.length } items',
-                style: TextStyle(
-                  fontSize: AppSizes.fontSizeBodyS,
-                  color: AppColors.greyTextColor,
-                ),
-              );
-            }
-            return const SizedBox.shrink();
-          }),
+
         ],
       ),
     );
@@ -81,7 +70,7 @@ class ProductsScreen extends GetView<ProductsController> {
   }
 
   Widget _buildLoadingState() {
-    return const Center(child: CircularProgressIndicator());
+    return const Center(child: CustomLoading());
   }
 
   Widget _buildErrorState() {
@@ -147,15 +136,16 @@ class ProductsScreen extends GetView<ProductsController> {
       onRefresh: () => controller.fetchProducts(refresh: true),
       color: AppColors.primaryColor,
       child: ListView.builder(
+        physics: const BouncingScrollPhysics(),
         controller: controller.scrollController,
         padding: const EdgeInsets.symmetric(horizontal: AppSizes.screenHorizontal),
         itemCount: controller.products.length + (controller.isPaginationLoading.value ? 1 : 0),
         itemBuilder: (BuildContext context, int index) {
           if (index == controller.products.length) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical: AppSizes.lg),
+            return const Padding(
+              padding: EdgeInsets.symmetric(vertical: AppSizes.lg),
               child: Center(
-                child: CircularProgressIndicator(color: AppColors.primaryColor),
+                child: CustomLoading(),
               ),
             );
           }

@@ -96,6 +96,5 @@ class ProductsController extends GetxController {
           data.map((dynamic e) => ProductModel.fromJson(e)).toList();
       products.addAll(fetched);
     }
-    // Silently fail on pagination error (could add snackbar if needed)
   }
 }

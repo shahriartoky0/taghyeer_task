@@ -22,7 +22,9 @@ class SignInController extends GetxController {
       isPasswordVisible.value = !isPasswordVisible.value;
 
   Future<void> signIn() async {
-    if (!formKey.currentState!.validate()) return;
+    if (!formKey.currentState!.validate()) {
+      return;
+    }
     errorMessage.value = '';
     isLoading.value = true;
 

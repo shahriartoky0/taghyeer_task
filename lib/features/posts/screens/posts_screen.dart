@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../../../core/config/app_colors.dart';
 import '../../../core/config/app_sizes.dart';
 import '../../../core/routes/app_routes.dart';
+import '../../../shared/components/custom_loader.dart';
 import '../controllers/posts_controller.dart';
 import '../models/post_model.dart';
 import '../widgets/post_card.dart';
@@ -121,15 +122,16 @@ class PostsScreen extends GetView<PostsController> {
       onRefresh: () => controller.fetchPosts(refresh: true),
       color: AppColors.primaryColor,
       child: ListView.builder(
+        physics: const BouncingScrollPhysics(),
         controller: controller.scrollController,
         padding: const EdgeInsets.symmetric(horizontal: AppSizes.screenHorizontal),
         itemCount: controller.posts.length + (controller.isPaginationLoading.value ? 1 : 0),
         itemBuilder: (BuildContext context, int index) {
           if (index == controller.posts.length) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical: AppSizes.lg),
+            return const Padding(
+              padding: EdgeInsets.symmetric(vertical: AppSizes.lg),
               child: Center(
-                child: CircularProgressIndicator(color: AppColors.primaryColor),
+                child:  CustomLoading(),
               ),
             );
           }

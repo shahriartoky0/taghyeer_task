@@ -21,6 +21,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
+        surfaceTintColor: Colors.transparent,
         backgroundColor: AppColors.backgroundColor,
         elevation: 0,
         leading: IconButton(
